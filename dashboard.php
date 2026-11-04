@@ -49,6 +49,7 @@ $recent = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <a href="transactions/add.php" class="btn btn-primary btn-sm">+ Add transaction</a>
             <a href="transactions/list.php" class="btn btn-outline-secondary btn-sm">All transactions</a>
             <a href="auth/logout.php" class="btn btn-outline-secondary btn-sm">Log out</a>
+            <a href="budgets/index.php" class="btn btn-outline-secondary btn-sm">Budgets</a>
         </div>
     </div>
 
