@@ -50,6 +50,7 @@ $recent = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <a href="transactions/list.php" class="btn btn-outline-secondary btn-sm">All transactions</a>
             <a href="auth/logout.php" class="btn btn-outline-secondary btn-sm">Log out</a>
             <a href="budgets/index.php" class="btn btn-outline-secondary btn-sm">Budgets</a>
+            <a href="reports.php" class="btn btn-outline-secondary btn-sm">Reports</a>
         </div>
     </div>
 
@@ -75,6 +76,22 @@ $recent = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </div>
 
+    <div class="row g-3 mb-4">
+    <div class="col-md-5">
+        <div class="card shadow-sm"><div class="card-body">
+            <h6>Spending by category</h6>
+            <canvas id="categoryChart"></canvas>
+            <p id="categoryEmpty" class="text-muted text-center my-4 d-none">No expenses this month yet.</p>
+        </div></div>
+    </div>
+    <div class="col-md-7">
+        <div class="card shadow-sm"><div class="card-body">
+            <h6>Income vs expenses (last 6 months)</h6>
+            <canvas id="monthlyChart"></canvas>
+        </div></div>
+    </div>
+</div>
+
     <h5>Recent transactions</h5>
     <div class="card shadow-sm">
         <table class="table mb-0">
@@ -95,5 +112,40 @@ $recent = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </table>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<script>
+fetch('api/category_spending.php')
+    .then(r => r.json())
+    .then(data => {
+        if (!data.values || data.values.length === 0) {
+            document.getElementById('categoryChart').classList.add('d-none');
+            document.getElementById('categoryEmpty').classList.remove('d-none');
+            return;
+        }
+        new Chart(document.getElementById('categoryChart'), {
+            type: 'doughnut',
+            data: { labels: data.labels, datasets: [{ data: data.values }] },
+            options: { plugins: { legend: { position: 'bottom' } } }
+        });
+    });
+
+fetch('api/monthly_summary.php')
+    .then(r => r.json())
+    .then(data => {
+        new Chart(document.getElementById('monthlyChart'), {
+            type: 'bar',
+            data: {
+                labels: data.labels,
+                datasets: [
+                    { label: 'Income',   data: data.income,  backgroundColor: '#198754' },
+                    { label: 'Expenses', data: data.expense, backgroundColor: '#dc3545' }
+                ]
+            },
+            options: { scales: { y: { beginAtZero: true } } }
+        });
+    });
+</script>
+
 </body>
 </html>
