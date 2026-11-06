@@ -34,6 +34,9 @@ function nav_active(string $path): string {
                     <a class="nav-link <?= nav_active('budgets/') ?>" href="<?= $base ?>budgets/index.php">Budgets</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link <?= nav_active('categories/') ?>" href="<?= $base ?>categories/index.php">Categories</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link <?= nav_active('reports.php') ?>" href="<?= $base ?>reports.php">Reports</a>
                 </li>
             </ul>
