@@ -48,13 +48,6 @@ $recent = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h3 class="mb-0">Hi, <?= htmlspecialchars($_SESSION['full_name']) ?></h3>
-        <div>
-            <a href="transactions/add.php" class="btn btn-primary btn-sm">+ Add transaction</a>
-            <a href="transactions/list.php" class="btn btn-outline-secondary btn-sm">All transactions</a>
-            <a href="auth/logout.php" class="btn btn-outline-secondary btn-sm">Log out</a>
-            <a href="budgets/index.php" class="btn btn-outline-secondary btn-sm">Budgets</a>
-            <a href="reports.php" class="btn btn-outline-secondary btn-sm">Reports</a>
-        </div>
     </div>
 
     <p class="text-muted">This month (<?= date('F Y') ?>)</p>
