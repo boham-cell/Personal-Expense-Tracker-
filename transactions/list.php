@@ -40,6 +40,9 @@ $transactions = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <?php if (isset($_GET['added'])): ?>
         <div class="alert alert-success py-2">Transaction saved.</div>
     <?php endif; ?>
+    <?php if (isset($_GET['updated'])): ?>
+        <div class="alert alert-success py-2">Transaction updated.</div>
+    <?php endif; ?>
 
     <div class="card shadow-sm">
         <table class="table mb-0">
@@ -64,9 +67,10 @@ $transactions = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <td><?= htmlspecialchars($t['category'] ?? '-') ?></td>
                     <td><?= htmlspecialchars($t['description'] ?? '') ?></td>
                     <td class="text-end">GH₵<?= number_format($t['amount'], 2) ?></td>
-                    <td class="text-end">
-                        <form method="POST" action="delete.php"
-                              onsubmit="return confirm('Delete this transaction?');">
+                    <td class="text-end text-nowrap">
+                        <a href="edit.php?id=<?= (int) $t['id'] ?>" class="btn btn-sm btn-outline-secondary">Edit</a>
+                        <form method="POST" action="delete.php" class="d-inline"
+                            onsubmit="return confirm('Delete this transaction?');">
                             <input type="hidden" name="id" value="<?= (int) $t['id'] ?>">
                             <button class="btn btn-sm btn-outline-danger">Delete</button>
                         </form>
