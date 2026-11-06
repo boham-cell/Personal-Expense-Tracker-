@@ -63,6 +63,7 @@ $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
+<?php include __DIR__ . '/../includes/navbar.php'; ?>
 <div class="container mt-4" style="max-width: 720px;">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h3 class="mb-0">Budgets <small class="text-muted fs-6"><?= date('F Y') ?></small></h3>
@@ -135,5 +136,6 @@ $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
     <?php endforeach; ?>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
