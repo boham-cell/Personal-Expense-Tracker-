@@ -41,7 +41,10 @@ $recent = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <title>Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
+
 <body class="bg-light">
+<?php include __DIR__ . '/includes/navbar.php'; ?>
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h3 class="mb-0">Hi, <?= htmlspecialchars($_SESSION['full_name']) ?></h3>
@@ -146,6 +149,6 @@ fetch('api/monthly_summary.php')
         });
     });
 </script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
