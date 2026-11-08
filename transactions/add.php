@@ -1,6 +1,7 @@
 <?php
 session_start();
 require '../config/db.php';
+require __DIR__ . '/../includes/csrf.php';
 
 if (!isset($_SESSION['user_id'])) {
     header('Location: ../auth/login.php');
@@ -15,6 +16,7 @@ $stmt->execute([$user_id]);
 $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    csrf_check();
     $type        = $_POST['type'] ?? '';
     $amount      = $_POST['amount'] ?? '';
     $category_id = $_POST['category_id'] ?? '';
@@ -78,6 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php endforeach; ?>
 
             <form method="POST">
+            <?= csrf_field() ?>
                 <div class="mb-3">
                     <label class="form-label">Type</label>
                     <select name="type" class="form-select" required>
