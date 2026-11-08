@@ -1,10 +1,12 @@
 <?php
 session_start();
 require '../config/db.php';
+require __DIR__ . '/../includes/csrf.php';
 
 $errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    csrf_check();
     $full_name = trim($_POST['full_name'] ?? '');
     $email     = trim($_POST['email'] ?? '');
     $password  = $_POST['password'] ?? '';
@@ -75,6 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php endforeach; ?>
 
             <form method="POST">
+            <?= csrf_field() ?>
                 <div class="mb-3">
                     <label class="form-label">Full name</label>
                     <input type="text" name="full_name" class="form-control"
