@@ -1,6 +1,7 @@
 <?php
 session_start();
 require '../config/db.php';
+require __DIR__ . '/../includes/csrf.php';
 
 if (!isset($_SESSION['user_id'])) {
     header('Location: ../auth/login.php');
@@ -10,6 +11,7 @@ $user_id = $_SESSION['user_id'];
 $errors  = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    csrf_check();
     $action = $_POST['action'] ?? '';
     $id     = (int) ($_POST['id'] ?? 0);
     $name   = trim($_POST['name'] ?? '');
@@ -90,6 +92,7 @@ $msg = $messages[$_GET['msg'] ?? ''] ?? null;
     <div class="card shadow-sm mb-4">
         <div class="card-body">
             <form method="POST" class="row g-2 align-items-end">
+            <?= csrf_field() ?>
                 <input type="hidden" name="action" value="add">
                 <div class="col-sm-9">
                     <label class="form-label">New category</label>
@@ -113,6 +116,7 @@ $msg = $messages[$_GET['msg'] ?? ''] ?? null;
                 <tr>
                     <td>
                         <form method="POST" class="input-group input-group-sm">
+                        <?= csrf_field() ?>
                             <input type="hidden" name="action" value="rename">
                             <input type="hidden" name="id" value="<?= (int) $c['id'] ?>">
                             <input type="text" name="name" maxlength="50" class="form-control"
@@ -126,6 +130,7 @@ $msg = $messages[$_GET['msg'] ?? ''] ?? null;
                     <td class="text-end">
                         <form method="POST"
                               onsubmit="return confirm('Delete this category?<?= $c['tx_count'] > 0 ? ' Its transactions will be kept but become uncategorised, and its budgets will be removed.' : '' ?>');">
+                              <?= csrf_field() ?>
                             <input type="hidden" name="action" value="delete">
                             <input type="hidden" name="id" value="<?= (int) $c['id'] ?>">
                             <button class="btn btn-sm btn-outline-danger">Delete</button>
