@@ -1,6 +1,7 @@
 <?php
 session_start();
 require '../config/db.php';
+require __DIR__ . '/../includes/csrf.php';
 
 if (!isset($_SESSION['user_id'])) {
     header('Location: ../auth/login.php');
@@ -71,6 +72,7 @@ $transactions = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <a href="edit.php?id=<?= (int) $t['id'] ?>" class="btn btn-sm btn-outline-secondary">Edit</a>
                         <form method="POST" action="delete.php" class="d-inline"
                             onsubmit="return confirm('Delete this transaction?');">
+                            <?= csrf_field() ?>
                             <input type="hidden" name="id" value="<?= (int) $t['id'] ?>">
                             <button class="btn btn-sm btn-outline-danger">Delete</button>
                         </form>
