@@ -1,6 +1,7 @@
 <?php
 session_start();
 require '../config/db.php';
+require __DIR__ . '/../includes/csrf.php';
 
 if (!isset($_SESSION['user_id'])) {
     header('Location: ../auth/login.php');
@@ -12,6 +13,7 @@ $errors  = [];
 
 // Save or update a budget
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    csrf_check();
     $category_id = $_POST['category_id'] ?? '';
     $limit       = $_POST['limit_amount'] ?? '';
 
@@ -80,6 +82,7 @@ $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <div class="card shadow-sm mb-4">
         <div class="card-body">
             <form method="POST" class="row g-2 align-items-end">
+            <?= csrf_field() ?>
                 <div class="col-sm-5">
                     <label class="form-label">Category</label>
                     <select name="category_id" class="form-select" required>
