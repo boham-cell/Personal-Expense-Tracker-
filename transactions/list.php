@@ -35,6 +35,7 @@ $transactions = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <div>
             <a href="add.php" class="btn btn-primary btn-sm">+ Add</a>
             <a href="../dashboard.php" class="btn btn-outline-secondary btn-sm">Dashboard</a>
+            <a href="export.php" class="btn btn-outline-success btn-sm">Export CSV</a>
         </div>
     </div>
 
