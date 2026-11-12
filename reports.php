@@ -85,6 +85,8 @@ $label = $period === 'day'
 <div class="container mt-4" style="max-width: 800px;">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h3 class="mb-0">Reports</h3>
+        <a href="transactions/export.php?from=<?= urlencode($from) ?>&to=<?= urlencode($to) ?>"
+   class="btn btn-outline-success btn-sm">Export this period</a>
         <a href="dashboard.php" class="btn btn-outline-secondary btn-sm">Dashboard</a>
     </div>
 
